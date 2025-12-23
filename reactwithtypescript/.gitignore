@@ -1,0 +1,31 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Node / buil
+node_modules
+dist
+dist-ssr
+
+*.local
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# TypeScript / editor artifacts
+*.tsbuildinfo
+
+# Coverage / test output
+coverage/
+jest/
+
+# Vite / caches
+.vite/
+.cache/

@@ -1,0 +1,43 @@
+# Visual Studio / .NET
+.vs/
+*.suo
+*.user
+*.userosscache
+**/bin/
+**/obj/
+
+# Solution / build artifacts
+*.log
+*.nupkg
+*.msi
+*.cache
+
+# VS Code
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Misc
+*.user
+*.sln.docstates
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# .NET / Visual Studio
+obj/
+bin/
+Debug/
+*.user
+*.userosscache
+.vs/
