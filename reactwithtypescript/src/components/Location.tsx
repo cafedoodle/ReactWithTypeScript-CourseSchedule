@@ -22,7 +22,12 @@ const Location: React.FC = () => {
     });
   };
 
-  const handleReset = (): void => {
+  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
+    changeLocation(event.target.value);
+  };
+
+  const handleReset = (event: React.MouseEvent<HTMLButtonElement>): void => {
+    event.preventDefault();
     changeLocation("AUS");
   };
 
@@ -57,9 +62,7 @@ const Location: React.FC = () => {
         id="Location"
         // Controlled select: `value` comes from context and `onChange` updates it via dispatch
         value={Location}
-        onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
-          changeLocation(event.target.value)
-        }
+        onChange={handleChange}
       >
         {options.map((o) => (
           <option key={o.value} value={o.value}>
