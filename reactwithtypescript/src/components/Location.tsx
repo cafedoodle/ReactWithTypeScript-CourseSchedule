@@ -26,6 +26,12 @@ const Location: React.FC = () => {
     changeLocation("AUS");
   };
 
+  type OptionType = { value: string; label: string };
+  const options: OptionType[] = [
+    { value: "AUS", label: "Austin(AUS)" },
+    { value: "DAL", label: "Dallas(DAL)" },
+    { value: "HOU", label: "Houston(HOU)" },
+  ];
   // --- Exercises (practice these to learn typing and handlers):
   // 1) Add a reset button with an explicitly typed click handler:
   //    const handleReset = (e: React.MouseEvent<HTMLButtonElement>): void => {
@@ -55,9 +61,11 @@ const Location: React.FC = () => {
           changeLocation(event.target.value)
         }
       >
-        <option value="AUS">Austin(AUS)</option>
-        <option value="DAL">Dallas(DAL)</option>
-        <option value="HOU">Houston(HOU)</option>
+        {options.map((o) => (
+          <option key={o.value} value={o.value}>
+            {o.label}
+          </option>
+        ))}
       </select>
       <button type="button" onClick={handleReset}>
         Reset to Austin
