@@ -44,6 +44,7 @@ export type Action =
   | { type: "RED_QUANTITY"; payload: { name: string; quantity: number } }
   | { type: "DELETE_ITEM"; payload: { name: string } }
   | { type: "CHG_LOCATION"; payload: string }
+  | { type: "SET_COURSES"; payload: Course[] }
   | { type: "DONE" };
 
 // 5. The reducer - this is used to update the state, based on the action
@@ -87,7 +88,10 @@ export const AppReducer = (state: State, action: Action): State => {
         Location: action.payload,
       };
     }
-
+    case "SET_COURSES": {
+      // Set the `courses` array to the provided payload.
+      return { ...state, courses: action.payload };
+    }
     default:
       // Unknown actions should return current state unchanged.
       return state;
@@ -96,15 +100,20 @@ export const AppReducer = (state: State, action: Action): State => {
 
 // 1. Sets the initial state when the app loads
 // initialState: sample data used when the app first loads. In a real app this might come from an API or persisted storage.
+// export const initialState: State = {
+//   courses: [
+//     { id: "Math", name: "Math", quantity: 1, credithour: 3 },
+//     { id: "English", name: "English", quantity: 1, credithour: 3 },
+//     { id: "Biology", name: "Biology", quantity: 1, credithour: 6 },
+//     { id: "Music", name: "Music", quantity: 1, credithour: 6 },
+//     { id: "Art", name: "Art", quantity: 1, credithour: 3 },
+//   ],
+//   Location: "AUS", // used as a location string in this sample app
+// };
+
 export const initialState: State = {
-  courses: [
-    { id: "Math", name: "Math", quantity: 1, credithour: 3 },
-    { id: "English", name: "English", quantity: 1, credithour: 3 },
-    { id: "Biology", name: "Biology", quantity: 1, credithour: 6 },
-    { id: "Music", name: "Music", quantity: 1, credithour: 6 },
-    { id: "Art", name: "Art", quantity: 1, credithour: 3 },
-  ],
-  Location: "AUS", // used as a location string in this sample app
+  courses: [],
+  Location: "", // used as a location string in this sample app
 };
 
 // AppContextType: the shape of the value provided by the context.
