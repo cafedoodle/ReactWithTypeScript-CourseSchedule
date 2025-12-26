@@ -13,7 +13,12 @@
  */
 import React, { useReducer, useEffect } from "react";
 //import type { ReactNode } from "react";
-import { AppContext, AppReducer, initialState } from "./AppContextData";
+import {
+  AppContext,
+  AppReducer,
+  initialState,
+  type AppContextType,
+} from "./AppContextData";
 
 // 3. Provider component - wraps the components we want to give access to the state
 // AppProvider: wraps children and provides access to app state via `AppContext`.
@@ -59,16 +64,31 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
     };
   }, []);
 
-  // Provide consumers with only the values they need (avoid passing the entire state object when not necessary).
-  return (
-    <AppContext.Provider
-      value={{
-        courses: state.courses,
-        dispatch,
-        Location: state.Location,
-      }}
-    >
-      {children}
-    </AppContext.Provider>
+  // original way, without useMemo
+  // // Provide consumers with only the values they need (avoid passing the entire state object when not necessary).
+  // return (
+  //   <AppContext.Provider
+  //     value={{
+  //       courses: state.courses,
+  //       dispatch,
+  //       Location: state.Location,
+  //     }}
+  //   >
+  //     {children}
+  //   </AppContext.Provider>
+  // );
+
+  // revised way: Use useMemo to optimize the provider value
+  // Memoize the context value to optimize performance and prevent unnecessary re-renders.
+  //const value: React.ContextType<typeof AppContext> = React.useMemo(
+  const value: AppContextType = React.useMemo(
+    () => ({
+      courses: state.courses,
+      dispatch,
+      Location: state.Location,
+    }),
+    [state.courses, state.Location, dispatch]
   );
+
+  return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };
