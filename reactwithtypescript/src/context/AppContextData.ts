@@ -47,6 +47,19 @@ export type Action =
   | { type: "SET_COURSES"; payload: Course[] }
   | { type: "DONE" };
 
+// Helper function to update course quantity
+const updateCourseQuantity = (
+  courses: Course[],
+  name: string,
+  quantityChange: number
+) => {
+  return courses.map((course) =>
+    course.name === name
+      ? { ...course, quantity: Math.max(course.quantity + quantityChange, 0) }
+      : course
+  );
+};
+
 // 5. The reducer - this is used to update the state, based on the action
 // Reducer: a pure function that returns the next State based on the incoming Action.
 // - Reducers must not mutate their inputs. Instead, they return a new state object (immutability).
@@ -55,23 +68,25 @@ export const AppReducer = (state: State, action: Action): State => {
   switch (action.type) {
     case "ADD_QUANTITY": {
       // Increase the `quantity` of the course matching `name` by `quantity`.
-      const { name, quantity } = action.payload;
-      const courses = state.courses.map((course) =>
-        course.name === name
-          ? { ...course, quantity: course.quantity + quantity }
-          : course
-      );
-      return { ...state, courses };
+      return {
+        ...state,
+        courses: updateCourseQuantity(
+          state.courses,
+          action.payload.name,
+          action.payload.quantity
+        ),
+      };
     }
     case "RED_QUANTITY": {
       // Reduce quantity but never drop below 0.
-      const { name, quantity } = action.payload;
-      const courses = state.courses.map((course) =>
-        course.name === name
-          ? { ...course, quantity: Math.max(course.quantity - quantity, 0) }
-          : course
-      );
-      return { ...state, courses };
+      return {
+        ...state,
+        courses: updateCourseQuantity(
+          state.courses,
+          action.payload.name,
+          -action.payload.quantity
+        ),
+      };
     }
     case "DELETE_ITEM": {
       // "Delete" sets the course's quantity to 0 while keeping the course entry.
