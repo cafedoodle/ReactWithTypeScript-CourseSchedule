@@ -1,41 +1,30 @@
+// src/App.tsx
 import React from "react";
 //import "bootstrap/dist/css/bootstrap.min.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import { AppProvider } from "./context/AppContext";
 import Layout from "./components/Layout";
-import CourseCartValue from "./components/CourseCartValue";
-import CourseList from "./components/CourseList";
-import ItemCourseSelected from "./components/ItemCourseSelected";
-import Location from "./components/Location";
+import CoursePlannerPAge from "./pages/CoursePlannerPage";
+import InfoPage from "./pages/InfoPage";
+import CollegeListPage from "./pages/CollegeListPage";
+import DepartmentListPage from "./pages/DepartmentListPage";
+import CourseListPage from "./pages/CourseListPage";
 
 const App: React.FC = () => {
   return (
     <AppProvider>
-      <Layout>
-        <div className="container">
-          <h1 className="mt-3">Course Schedule</h1>
-          <div className="row mt-3">
-            <div className="col-sm">
-              <CourseCartValue />
-            </div>
-            <div className="col-sm">
-              <Location />
-            </div>
-          </div>
-          <h3 className="mt-3">Course List</h3>
-          <div className="row ">
-            <div className="col-sm">
-              <CourseList />
-            </div>
-          </div>
-          <h3 className="mt-3">Add Course</h3>
-          <div className="row mt-3">
-            <div className="col-sm">
-              <ItemCourseSelected />
-            </div>
-          </div>
-        </div>
-      </Layout>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<CoursePlannerPAge />} />
+            <Route path="info" element={<InfoPage />} />
+            <Route path="colleges" element={<CollegeListPage />} />
+            <Route path="departments" element={<DepartmentListPage />} />
+            <Route path="courses" element={<CourseListPage />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </AppProvider>
   );
 };
