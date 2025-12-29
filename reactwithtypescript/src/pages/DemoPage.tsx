@@ -2,8 +2,10 @@ import React from "react";
 import DemoCookie from "../components/demo/DemoCookie";
 import DemoLocalStorage from "../components/demo/DemoLocalStorage";
 import DemoSessionStorage from "../components/demo/DemoSessionStorage";
+import useWindowSize from "../hooks/useWindowSize";
 
 const DemoPage: React.FC = () => {
+  const windowSize = useWindowSize();
   return (
     <>
       <div>
@@ -11,6 +13,11 @@ const DemoPage: React.FC = () => {
         <DemoCookie />
         <DemoLocalStorage />
         <DemoSessionStorage />
+      </div>
+      <div>
+        <p>
+          Window Size: {windowSize.width} x {windowSize.height}
+        </p>
       </div>
     </>
   );
