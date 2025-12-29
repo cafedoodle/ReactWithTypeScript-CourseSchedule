@@ -10,6 +10,7 @@ import InfoPage from "./pages/InfoPage";
 import CollegeListPage from "./pages/CollegeListPage";
 import DepartmentListPage from "./pages/DepartmentListPage";
 import CourseListPage from "./pages/CourseListPage";
+import DemoPage from "./pages/DemoPage";
 
 const App: React.FC = () => {
   return (
@@ -22,6 +23,7 @@ const App: React.FC = () => {
             <Route path="colleges" element={<CollegeListPage />} />
             <Route path="departments" element={<DepartmentListPage />} />
             <Route path="courses" element={<CourseListPage />} />
+            <Route path="demo" element={<DemoPage />} />
           </Route>
         </Routes>
       </BrowserRouter>

@@ -29,6 +29,9 @@ const Layout: React.FC = () => {
             <Nav.Link as={Link} to="/courses">
               Course List
             </Nav.Link>
+            <Nav.Link as={Link} to="/demo">
+              Demo Page
+            </Nav.Link>
           </Nav>
         </Container>
       </Navbar>
