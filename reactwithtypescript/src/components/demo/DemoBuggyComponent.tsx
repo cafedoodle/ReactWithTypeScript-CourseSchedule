@@ -5,7 +5,7 @@
  */
 
 export const DemoBuggyComponent = () => {
-  const hasError = false;
+  const hasError = true;
 
   if (hasError) {
     throw new Error("DemoBuggyComponent crashed!");
