@@ -3,17 +3,40 @@ import { useState, useEffect } from "react";
 export const DemoErrorHandling = () => {
   const [data, setData] = useState(null);
   const [error, setError] = useState<string | null>(null); // Accepts string or null
+  const [loading, setLoading] = useState<boolean>(true);
 
-  useEffect(() => {
-    const fetchData = async () => {
+  const fetchDataWithRetry = async (url: string, retries: number = 3) => {
+    console.log("Inside fetchDataWithRetry...");
+    for (let attempt = 0; attempt < retries; attempt++) {
       try {
-        //const response = await fetch("https://fakestoreapi.com/products"); //Regular working version
-        //const response = await fetch("https://fakestoreapi.com/products/1"); //Regular working version
-        const response = await fetch("https://fakestoreapi.com/products1"); //Sample error by url typo products1
+        const response = await fetch(url);
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
         const result = await response.json();
+        return result; // Return the result if successful
+      } catch (err) {
+        if (attempt === retries - 1) {
+          console.error(`Max retry attempts reached for URL: ${url}.`);
+          throw err; // Rethrow error if the last attempt fails
+        }
+        console.warn(`Attempt ${attempt + 1} failed. Retrying...`);
+      }
+    }
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      setError(null); // Reset error state before fetching
+      try {
+        console.log("Calling fetchDataWithRetry...");
+        const result = await fetchDataWithRetry(
+          "https://fakestoreapi.com/products1"
+        );
+        //https://fakestoreapi.com/products"); //Regular working version
+        //https://fakestoreapi.com/products/1"); //Regular working version
+        //https://fakestoreapi.com/products1 //Sample error by url typo products1
         setData(result);
       } catch (err) {
         if (err instanceof Error) {
@@ -21,15 +44,16 @@ export const DemoErrorHandling = () => {
         } else {
           setError("An unknown error occurred"); // Fallback for non-Error instances
         }
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchData();
   }, []);
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
 
-  return <div>{data ? JSON.stringify(data) : "Loading..."}</div>;
+  return <div>{data ? JSON.stringify(data) : "No data available"}</div>;
 };
