@@ -53,7 +53,16 @@ export const DemoErrorHandling = () => {
   }, []);
 
   if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
+  const content = error ? (
+    <div>Error: {error}</div>
+  ) : (
+    <div>{data ? JSON.stringify(data) : "No data available"}</div>
+  );
 
-  return <div>{data ? JSON.stringify(data) : "No data available"}</div>;
+  return (
+    <div>
+      <h2>Error Handling Demo</h2>
+      {content}
+    </div>
+  );
 };
