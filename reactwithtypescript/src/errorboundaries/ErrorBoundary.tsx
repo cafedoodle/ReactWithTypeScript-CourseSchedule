@@ -24,7 +24,7 @@ class ErrorBoundary extends React.Component<Props, State> {
 
   // Specify the type of the error parameter
   static getDerivedStateFromError(error: Error): State {
-    console.error(`Error: Inside ErrorBoundary - ${error}.`);
+    console.error("Error caught in ErrorBoundary:", error);
     return { hasError: true };
   }
 
@@ -37,7 +37,7 @@ class ErrorBoundary extends React.Component<Props, State> {
 
   render() {
     if (this.state.hasError) {
-      return <h1>Something went wrong.</h1>;
+      return <h1>Something went wrong. ErrorBoundary</h1>;
     }
 
     return this.props.children;
