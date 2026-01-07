@@ -6,6 +6,7 @@ import { DemoResize } from "../components/demo/DemoResize";
 import { DemoKeyPress } from "../components/demo/DemoKeyPress";
 import { DemoMousePosition } from "../components/demo/DemoMousePosition";
 import { DemoErrorHandling } from "../components/demo/DemoErrorHandling";
+import { DemoAppInsights } from "../components/demo/DemoAppInsights";
 import useWindowSize from "../hooks/useWindowSize";
 
 const DemoPage: React.FC = () => {
@@ -25,6 +26,8 @@ const DemoPage: React.FC = () => {
         <DemoMousePosition />
         <hr />
         <DemoErrorHandling />
+        <hr />
+        <DemoAppInsights />
         <hr />
       </div>
       <div>
