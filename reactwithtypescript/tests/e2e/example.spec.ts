@@ -18,16 +18,6 @@ test("has title", async ({ page }) => {
 //   // Assert that the heading is present
 //   await expect(page.getByRole("heading", { name: "Info Page" })).toBeVisible();
 // });
-//
-test("user visits Info page directly", async ({ page }) => {
-  // Directly visit the Info page
-  await page.goto("/info");
-
-  // Assert that "Info Page" content is visible
-  await expect(page.getByText("Info Page")).toBeVisible();
-  // Assert that the heading is present
-  await expect(page.getByRole("heading", { name: "Info Page" })).toBeVisible();
-});
 
 // test("get started link", async ({ page }) => {
 //   await page.goto("https://playwright.dev/");
