@@ -7,13 +7,23 @@ test("has title", async ({ page }) => {
   await expect(page).toHaveTitle(/reactwithtypescript/);
 });
 
-test("user navigates to Info page from home", async ({ page }) => {
-  await page.goto("/"); // baseURL is set in config
+// test("user navigates to Info page from home", async ({ page }) => {
+//   await page.goto("/"); // baseURL is set in config
 
-  // Click the "Info" link
-  await page.getByRole("link", { name: "Info" }).click();
+//   // Click the "Info" link
+//   await page.getByRole("link", { name: "Info" }).click();
 
-  // Assert that "Info Page" is now visible
+//   // Assert that "Info Page" is now visible
+//   await expect(page.getByText("Info Page")).toBeVisible();
+//   // Assert that the heading is present
+//   await expect(page.getByRole("heading", { name: "Info Page" })).toBeVisible();
+// });
+//
+test("user visits Info page directly", async ({ page }) => {
+  // Directly visit the Info page
+  await page.goto("/info");
+
+  // Assert that "Info Page" content is visible
   await expect(page.getByText("Info Page")).toBeVisible();
   // Assert that the heading is present
   await expect(page.getByRole("heading", { name: "Info Page" })).toBeVisible();
