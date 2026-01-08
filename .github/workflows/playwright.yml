@@ -19,6 +19,12 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
         working-directory: reactwithtypescript
+      - name: Start dev server
+        run: npm run dev &
+        working-directory: reactwithtypescript
+      - name: Wait for server to be ready
+        run: npx wait-on http://localhost:5173
+        working-directory: reactwithtypescript
       - name: Run Playwright tests
         run: npx playwright test
         working-directory: reactwithtypescript
