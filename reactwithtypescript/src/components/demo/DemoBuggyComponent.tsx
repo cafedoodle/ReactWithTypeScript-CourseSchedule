@@ -6,6 +6,7 @@
 
 export const DemoBuggyComponent = () => {
   const hasError = true;
+  //test
 
   if (hasError) {
     throw new Error("DemoBuggyComponent crashed!");
